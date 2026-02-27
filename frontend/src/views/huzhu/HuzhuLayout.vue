@@ -59,8 +59,10 @@ const currentRailKey = computed<string | null>(() => {
   return null
 })
 
+const currentDrawerKey = computed(() => activeDrawerKey.value || hoverDrawerKey.value)
+
 const activeDrawerTitle = computed(() => {
-  const key = activeDrawerKey.value || hoverDrawerKey.value
+  const key = currentDrawerKey.value
   if (!key) return ''
   if (key === 'dashboard') return '仪表盘'
   if (key === 'settings') return '系统配置'
@@ -69,7 +71,7 @@ const activeDrawerTitle = computed(() => {
 })
 
 const activeDrawerItems = computed(() => {
-  const key = activeDrawerKey.value || hoverDrawerKey.value
+  const key = currentDrawerKey.value
   if (!key) return [] as Array<{ title: string; path: string; icon: any }>
 
   if (key === 'dashboard') {
@@ -100,8 +102,8 @@ const shouldShowRailDrawer = computed(() => {
 const isActive = (path: string) => route.path === path
 
 const isRailTabActive = (tab: { key: string; path: string }) => {
-  if (activeDrawerKey.value || hoverDrawerKey.value) {
-    return (activeDrawerKey.value || hoverDrawerKey.value) === tab.key
+  if (currentDrawerKey.value) {
+    return currentDrawerKey.value === tab.key
   }
   if (tab.path) {
     return isActive(tab.path)
@@ -209,10 +211,6 @@ const handleRailDrawerLeave = () => {
   scheduleHoverClose()
 }
 
-const handleSidebarMaskClick = () => {
-  closeMobileDrawer()
-}
-
 const logout = () => {
   clearHuzhuAuth()
   router.push('/login')
@@ -265,7 +263,7 @@ onUnmounted(() => {
 <template>
   <div class="layout" :style="{ '--sidebar-width': isSidebarCollapsed ? '92px' : '286px' }">
     <transition name="mask-fade">
-      <div v-if="isMobileDrawerOpen" class="sidebar-mask" @click="handleSidebarMaskClick"></div>
+      <div v-if="isMobileDrawerOpen" class="sidebar-mask" @click="closeMobileDrawer"></div>
     </transition>
 
     <aside class="sidebar" :class="{ collapsed: isSidebarCollapsed, 'mobile-open': isMobileDrawerOpen }">
@@ -759,10 +757,6 @@ onUnmounted(() => {
 
 .mobile-menu-btn:active {
   transform: scale(0.96);
-}
-
-.topbar h2 {
-  margin: 0;
 }
 
 .user-box {

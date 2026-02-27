@@ -122,7 +122,8 @@ public class AnalysisController {
         List<ProductionProcess> productions = productionProcessService.list();
         List<QualityControl> qualityControls = qualityControlService.list();
 
-        YearMonth endMonth = detectLatestMonth(orders, purchases, productions, qualityControls);
+        // 趋势窗口强制对齐当前月，避免历史脏数据/未来测试数据影响展示窗口
+        YearMonth endMonth = YearMonth.now();
         YearMonth startMonth = endMonth.minusMonths(monthCount - 1L);
 
         Map<YearMonth, BigDecimal> purchaseMonthly = initDecimalSeries(startMonth, monthCount);
