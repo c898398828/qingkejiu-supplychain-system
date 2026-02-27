@@ -6,7 +6,7 @@
 - 后端：Spring Boot 2.7 + MyBatis-Plus + MySQL
 
 主要功能覆盖：系统管理、供应链管理、生产管理、销售管理、协同办公、质量追溯，以及登录鉴权与权限控制。
-
+<img width="1920" height="928" alt="image" src="https://github.com/user-attachments/assets/8d86e1b5-84c3-43f0-9120-5d6a9bbdd913" />
 <img width="1920" height="928" alt="image" src="https://github.com/user-attachments/assets/ebac626e-de85-4146-b52a-4bc70ff9e87c" />
 <img width="1920" height="928" alt="image" src="https://github.com/user-attachments/assets/d0935804-675b-44e6-94c0-e9e24c2ea2ea" />
 <img width="1920" height="928" alt="image" src="https://github.com/user-attachments/assets/1d17a1c1-1012-4878-976c-28e41d76b3e0" />
